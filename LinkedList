@@ -1,0 +1,84 @@
+package data_structures;
+class Node {
+	int data;
+	Node next;
+	Node(int data) {
+		this.data=data;
+	}
+}
+public class linkedList {	
+	Node first;
+	Node current;
+	linkedList() {
+		first=null;
+	}
+	void insertNode(int data) {
+		if(first==null) {
+			first=new Node(data);
+			first.next=null;
+			current=first;
+		}
+		else {
+			Node node=new Node(data);
+			current.next=node;
+			current=node;
+		}
+	}
+	
+	void insertAtBeginning(int data) {
+		Node node=new Node(data);
+		node.next=first;
+		first=node;
+	}
+	
+	void insertAtposition(int position,int data) {
+		Node insertPos=first;
+		Node holdPos;
+		int count=0;
+		while(insertPos!=null) {
+			count++;
+			if(count==position) {
+				Node node=new Node(data);
+				holdPos=insertPos.next;
+				insertPos.next=node;
+				node.next=holdPos;
+				break;
+			}
+			
+			insertPos=insertPos.next;
+		}
+	
+	}
+	
+	void searchForElement(int data) {
+		Node search=first;
+		while(search!=null) {
+		if(search.data==data) {
+			System.out.println("Element found");
+			break;
+		}
+			else {
+		search=search.next;
+		}
+		}
+	}
+	void display() {
+		Node displayelement=first;
+		while(displayelement!=null) {
+			System.out.println(displayelement.data);
+			displayelement=displayelement.next;
+		}
+	}
+	public static void main(String... args) {
+		linkedList l=new linkedList();
+		l.insertNode(10);
+		l.insertNode(20);
+		l.insertNode(30);
+		l.insertNode(40);
+		l.insertAtBeginning(5);
+		l.insertAtBeginning(40);
+		l.insertAtposition(2, 33);
+		l.display();
+		l.searchForElement(10);
+		}
+}
