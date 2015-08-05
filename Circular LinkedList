@@ -1,0 +1,73 @@
+package data_structures;
+
+class Node {
+	int data;
+	Node next;
+	Node(int data) {
+		this.data=data;
+	}
+}
+public class CircularLinkedList {
+	private Node first;
+	private Node Current;
+	public CircularLinkedList() {
+	first=null;
+	}
+	
+	public void insertAtBeginnning(int data) {
+		Node node=new Node(data);
+		node.next=first;
+		Current.next=node;
+		first=node;
+		
+	}
+	public void insertInBetween(int data,int position){
+		Node holdNode;
+		int count=0;
+		Node traverse=first;
+		while(count!=position){
+			count++;
+			traverse=traverse.next;
+			if(count==position-1) {
+				Node node=new Node(data);
+				holdNode=traverse.next;
+				traverse.next=node;
+				node.next=holdNode;
+				break;
+			}
+		}
+	}
+	public void insert(int data) {
+		if(first==null) {
+			first=new Node(data);
+			first.next=first;
+			Current=first;
+		}
+		else {
+			Node node=new Node(data);
+			Current.next=node;
+			node.next=first;
+			Current=node;
+		}
+	}
+	public void display() {
+		Node displayelements=first;
+		while(displayelements!=null) {
+			System.out.println(displayelements.data);
+			displayelements=displayelements.next;
+			if(displayelements==first)
+				break;
+		}
+	}
+	public static void main(String... args) {
+		CircularLinkedList cl=new CircularLinkedList();
+		cl.insert(10);
+		cl.insert(20);
+		cl.insert(30);
+		cl.insert(40);
+		cl.insert(50);
+		cl.insertAtBeginnning(60);
+		cl.insertInBetween(66, 4);
+		cl.display();
+	}
+}
