@@ -1,0 +1,115 @@
+package data_structures;
+class Node {
+	int data;
+	Node head;
+	Node tail;
+	Node(int data) {
+		this.data=data;
+	}
+}
+public class DoubleLinkedlist {
+	Node first;
+	Node last;
+	DoubleLinkedlist() {
+		first=null;
+		
+	}
+	void insert(int data) {
+		if(first==null) {
+			first=new Node(data);
+			first.head=null;
+			first.tail=null;
+			last=first;
+		}
+		else {
+			Node node=new Node(data);
+			last.head=node;
+			node.tail=last;
+			node.head=null;
+			last=node;
+		}
+	}
+	void insertAtBeginning(int data) {
+		Node insertBeginning=first;
+		Node node=new Node(data);
+		node.tail=null;
+		node.head=insertBeginning;
+		insertBeginning.tail=node;
+		first=node;
+	}
+	void insertAtPosition(int data,char flag,int position) {
+		//flag f indicates insert at a position from front
+		//flag l indicates insert at a position from last
+		if(flag=='f') {
+			Node node=new Node(data);
+			Node insertAtPos=first;
+			Node holdNode;
+			int count=0;
+			while(insertAtPos!=null) {
+				count++;	
+				if(count==position) {
+					holdNode=insertAtPos.head;
+					insertAtPos.head=node;
+					node.tail=insertAtPos;
+					node.head=holdNode;
+					holdNode.tail=node;
+				break;
+				}
+			insertAtPos=insertAtPos.head;
+			}
+		}
+		if(flag=='l') {
+			Node node=new Node(data);
+			Node insertAtPos=last;
+			Node holdNode;
+			int count=countNodes();
+			while(insertAtPos!=null) {
+				if(count==position) {
+					holdNode=insertAtPos.tail;
+					node.head=insertAtPos;
+					insertAtPos.tail=node;
+					node.tail=holdNode;
+					holdNode.head=node;
+				}
+				count--;
+				insertAtPos=insertAtPos.tail;
+			}
+		}
+	}
+	int countNodes() {
+		int count=0;
+		Node start=first;
+		while(start!=null) {
+			count++;
+			start=start.head;
+		}
+		return count;
+	}
+	void displayFromBeginning() {
+		Node display=first;
+		while(display!=null) {
+			System.out.println(display.data);
+			display=display.head;
+		}
+	}
+	void displayFromLast() {
+		Node display=last;
+		while(display!=null) {
+			System.out.println(display.data);
+			display=display.tail;
+		}
+	}
+	public static void main(String... args) {
+		DoubleLinkedlist dl=new DoubleLinkedlist();
+		dl.insert(10);
+		dl.insert(20);
+		dl.insert(30);
+		dl.insert(40);
+		dl.insertAtBeginning(5);
+		dl.insertAtPosition(200, 'f', 4);
+		dl.displayFromBeginning();
+		dl.insertAtPosition(33, 'l',4);
+		System.out.println("from beginning");
+		dl.displayFromBeginning();
+		}
+} 
