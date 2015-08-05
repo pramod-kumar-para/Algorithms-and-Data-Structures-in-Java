@@ -1,0 +1,69 @@
+package data_structures;
+class Node {
+	Integer data;
+	Node left;
+	Node right;
+	Node(Integer data) {
+		this.data=data;
+		left=null;
+		right=null;
+	}
+}
+public class BinarySearchTree {
+	private Node root;
+	private Node searchElement;
+	public BinarySearchTree() {
+	root=null;
+	}
+	public void insert(Integer data) {
+		if(root==null) {
+			root=new Node(data);
+			System.out.println("root");
+					}else {
+		root=insert(data,root);
+		}
+	}
+	public Node insert(Integer data,Node traverse) {
+		if(traverse==null){
+			traverse=new Node(data);
+					}
+		else if(data<traverse.data){
+			traverse.left=insert(data,traverse.left);
+				}
+		else {
+			traverse.right=insert(data,traverse.right);
+				}
+		return traverse;
+	}
+	
+	public Node search(int element,Node traverse) {
+		if(traverse==null) {
+			System.out.println("Element not found");
+			return traverse;
+		}else if(element<traverse.data) {
+			traverse.left=search(element,traverse.left);
+			return traverse;
+		}else if(element>traverse.data) {
+			traverse.right=search(element,traverse.right);
+			return traverse;
+		}else if(element==traverse.data) {
+			System.out.println("element found");
+			System.out.println(traverse);
+			return traverse;
+		}
+		return traverse;
+	}
+	public void search(int element) {
+		searchElement=search(element,root);
+	}
+	public static void main(String... args){
+		BinarySearchTree bst=new BinarySearchTree();
+		bst.insert(10);
+		bst.insert(12);
+		bst.insert(6);
+		bst.insert(100);
+		bst.search(12);
+	}
+	}
+
+	
