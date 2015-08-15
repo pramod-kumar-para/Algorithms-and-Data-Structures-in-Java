@@ -1,0 +1,66 @@
+class Node {
+    private int data;
+    private int priority;
+    Node next;
+	Node(int data,int priority) {
+		this.data=data;
+		this.priority=priority;
+	}
+	public int getData() {
+		return data;
+	}
+	public int getPriority() {
+		return priority;
+	}
+}
+
+class priorityQueue {
+	private Node first;
+	private Node current;
+	public priorityQueue() {
+		first=null;
+	}
+	public void insert(int data,int priority) {
+		Node pivot=null;
+		Node current=first;
+		while(current!=null&&priority>=current.getPriority()) {
+			pivot=current;
+			current=current.next;
+		}
+		if(pivot==null) {
+			first=new Node(data, priority);
+		}
+		else {	
+			Node node=new Node(data, priority);
+			pivot.next=node;
+			node.next=current;
+		}
+		
+		
+	}
+	
+	public void display() {
+		Node display=first;
+		do {
+			System.out.println(display.getData());
+			display=display.next;
+		}while(display!=null);
+		
+	}
+	public void pop() {
+		Node temp=first;
+		first=first.next;
+		temp=null;
+	}
+}
+public class Test {
+	public static void main(String args[]) {
+		priorityQueue pq=new priorityQueue();
+		pq.insert(3, 1);
+		pq.insert(4, 2);
+		pq.insert(5, 1);
+		pq.display();
+		pq.pop();
+		pq.display();
+	}
+}
